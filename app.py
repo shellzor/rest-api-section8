@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api # Dont have to use jsonify, flask_restful does that for us.
 from flask_jwt import JWT
@@ -8,7 +10,7 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #extension behavior change.
 app.secret_key = 'jose'
 api = Api(app)
